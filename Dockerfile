@@ -18,7 +18,7 @@ FROM alpine:latest
 WORKDIR /app
 
 # 将构建产物/app/x1aol1system拷贝到运行时的工作目录中
-COPY --from=builder /app/x1aol1system /app/index.html /app/
+COPY --from=builder /app/x1aol1system /app/
 
 # 执行启动命令
 CMD ["/app/x1aol1system"]

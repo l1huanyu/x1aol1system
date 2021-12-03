@@ -1,8 +1,12 @@
 package db
 
 import (
+	"context"
+
+	"entgo.io/ent/dialect"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/l1huanyu/x1aol1system/ent"
+	"github.com/l1huanyu/x1aol1system/infrastructure/db/ent"
+	"github.com/l1huanyu/x1aol1system/util"
 )
 
 type Ent struct {
@@ -10,8 +14,11 @@ type Ent struct {
 }
 
 func NewEnt() *Ent {
-	client, err := ent.Open("mysql", "root:Li960127!@tcp(sh-cynosdbmysql-grp-8wz4ch3s.sql.tencentcdb.com:26230)/x1aol1system?parseTime=True")
+	client, err := ent.Open(dialect.MySQL, util.GetMySQLSource())
 	if err != nil {
+		panic(err)
+	}
+	if err = client.Schema.Create(context.Background()); err != nil {
 		panic(err)
 	}
 	return &Ent{
